@@ -1,0 +1,2 @@
+# dokodemo_mini
+いわゆるLチカです。
