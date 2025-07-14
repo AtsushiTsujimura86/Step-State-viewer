@@ -1,7 +1,7 @@
 import serial
 import paho.mqtt.client as mqtt
 
-SERIAL_PORT = 'COM12' # シリアルポートの設定
+SERIAL_PORT = 'COM5' # シリアルポートの設定
 BAUD_RATE = 9600 # ボーレートの設定
 
 #MQTTブローカーの設定

@@ -20,6 +20,7 @@ function MermaidChart({ currentState }) {
 
   // Mermaid構文を生成
   const generateMermaid = () => {
+    console.log('Generating Mermaid diagram...');
     return `
       stateDiagram-v2
         [*] --> IDLE
@@ -43,6 +44,7 @@ function MermaidChart({ currentState }) {
     mermaid.render(graphId.current, generateMermaid())
       .then(({ svg }) => {
         containerRef.current.innerHTML = svg;
+        console.log('✅ Mermaid rendered successfully');
       })
       .catch(err => {
         containerRef.current.innerHTML = `<pre style="color:red">${err.message}</pre>`;
