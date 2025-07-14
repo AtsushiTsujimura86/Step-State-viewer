@@ -1,11 +1,13 @@
 # MQTTとSOCKETで組み込みデバイスの状態をブラウザに表示するシステム
 
-## python
+## 使い方
+
+### python
 `pip install paho.mqtt pyserial`
 シリアルポートを指定して、実行。このときplatformIOのシリアルモニタは使えないので注意。
 <br>
 
-## frontend
+### frontend
 frontendのディレクトリで
 ``` bash
 npm install
@@ -15,13 +17,13 @@ npm install mermaid
 ポート番号は3001
 <br>
 
-## backend
+### backend
 `npm install express cors socket.io mqtt`
 ポート番号は3000
 <br>
 
 
-## MQTTブローカー
+### MQTTブローカー
 
 #### ① MSYS2のインストール
 
