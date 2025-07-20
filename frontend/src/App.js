@@ -1,35 +1,38 @@
 import logo from './logo.svg';
 import './App.css';
+import React, { useState, useEffect} from 'react';
 import MermaidChart from './components/MermaidChart';
-import {connectSocket, subscribeToLog, unsubscribeFromLog } from './services/socketClient';
-import {getCurrentStateFromLog} from './logic/stateHandler';
-import { useEffect, useState } from 'react';
+import FileUploader from './components/FileUploader';
+import StateLogViewer from './components/StateLogViewer';
 
 function App() {
-  const [currentState, setCurrentState] = useState('IDLE');
+    const [stateLogs, setStateLogs] = useState(["STATE: EX"]);
+    const [currentIndex, setCurrentIndex] = useState(0);
 
-  useEffect(() => {
-    const socket = connectSocket();
-    
-    const handleLog = (log) => {
-      console.log('Received log:', log);
-      const newState = getCurrentStateFromLog(log);
-      if(newState) setCurrentState(newState);
+    const handleLogLoad = (logs) => {
+        setStateLogs(logs);
+        setCurrentIndex(0);
+    }
+
+    const handleNext = () => {
+        if (currentIndex < stateLogs.length - 1) {
+            setCurrentIndex(currentIndex + 1);
+        }
     };
-    
-    subscribeToLog(socket, handleLog);
-    console.log('Subscribed to log updates');
-    return () => {
-      unsubscribeFromLog(socket, handleLog);
-    };
-  }, []);
+
 
   return (
     <div className="App">
-      <h1>Post Test</h1>
-      {/* <Log /> */}
-      <h2>現在の状態：{currentState}</h2>
-      <MermaidChart  currentState={currentState}/>
+      <h2>ログステップ実行ビューア</h2>
+      <FileUploader onLoad={handleLogLoad} />
+      <button
+        onClick={handleNext}
+        disabled={currentIndex >= stateLogs.length - 1}
+        style={{ marginTop: "10px" }}
+      >
+        次のステップ →
+      </button>
+      <StateLogViewer logs={stateLogs} currentIndex={currentIndex} />
     </div>
   );
 }
