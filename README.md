@@ -1,6 +1,17 @@
-# MQTTとSOCKETで組み込みデバイスの状態をブラウザに表示するシステム
+# MQTTとSOCKETで組み込みデバイスの状態をブラウザに表示するシステム ステップ実行.ver
 
 ## 使い方
+
+### PlatformIO CLIで書き込み＆実行＆ログ出力
+vscodeの左側のPlatformIOのアイコン（蟻のアイコン） > Miscellaneous > New TerminalでPlatformIO CLIを開く。その後以下のコマンドを入力すると、
+シリアルのログを取得できる。
+``` bash
+$date = Get-Date -Format "MMddyyyy_HHmmss"
+pio device monitor | Tee-Object -FilePath "logs/${date}_log.txt"
+
+```
+<br>
+<br>
 
 ### python
 `pip install paho.mqtt pyserial`
@@ -59,3 +70,5 @@ pacman -S mingw-w64-x86_64-mosquitto mingw-w64-x86_64-gcc
 ```bash
 mosquitto -v          # → mosquittoが起動する（Ctrl+Cで終了）
 ```
+
+
