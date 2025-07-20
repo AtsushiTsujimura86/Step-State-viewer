@@ -6,12 +6,13 @@
  */
 #include <dokodemo.h>
 #include <cstring>
+#include "magic_enum.hpp"
 
 DOKODEMO Dm = DOKODEMO();
 
 int i = 0;
 // IDLE, RX, TXの文字列を持つ配列
-const char* STATES [] = {"IDLE", "RX", "TX"};
+enum class STATES  {IDLE, RX, TX};
 
 void setup()
 {
