@@ -1,0 +1,10 @@
+{
+    "states": ["IDLE", "LOADING", "PROCESSING", "COMPLETED"],
+    "transitions": [
+        {"from": "IDLE", "to": "LOADING"},
+        {"from": "LOADING", "to": "PROCESSING"},
+        {"from": "PROCESSING", "to": "COMPLETED"},
+        {"from": "COMPLETED", "to": "IDLE"}
+    ],
+    "initialState": "IDLE"
+}

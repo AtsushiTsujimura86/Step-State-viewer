@@ -2,13 +2,15 @@ import logo from './logo.svg';
 import './App.css';
 import React, { useState, useEffect} from 'react';
 import MermaidChart from './components/MermaidChart';
-import FileUploader from './components/FileUploader';
+import FileUploader from './components/LogFileUploader';
 import StateLogViewer from './components/StateLogViewer';
+import StateJsonFileUploader from './components/StateJsonFileUploader';
 
 function App() {
     const [stateLogs, setStateLogs] = useState([]);
     const [currentIndex, setCurrentIndex] = useState(0);
     const [currentState, setCurrentState] = useState('IDLE');
+    const [stateJson, setStateJson] = useState({});
 
     const handleLogLoad = (logs) => {
         setStateLogs(logs);
@@ -18,6 +20,13 @@ function App() {
             setCurrentState(firstState);
         }       
     }
+
+    const handleStataJsonLoad = (json) => {
+        setStateJson(json);
+        console.log("State JSON Loaded:", json);
+    
+        }
+    
 
     const handleNext = () => {
         if (currentIndex < stateLogs.length - 1) {
@@ -33,6 +42,7 @@ function App() {
     <div className="App">
         <h2>ログステップ実行ビューア</h2>
         <FileUploader onLoad={handleLogLoad} />
+        <StateJsonFileUploader onLoad={handleStataJsonLoad} />
         <button
             onClick={handleNext}
             disabled={currentIndex >= stateLogs.length - 1}
@@ -42,7 +52,7 @@ function App() {
         </button>
         <div style={{ display: 'flex', justifyContent:'center' }}>
             <StateLogViewer logs={stateLogs} currentIndex={currentIndex} />
-            <MermaidChart currentState={currentState}/>
+            <MermaidChart currentState={currentState} stateJson={stateJson}/>
         </div>
 
     </div>
