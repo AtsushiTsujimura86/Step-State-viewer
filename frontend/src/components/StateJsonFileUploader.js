@@ -2,6 +2,8 @@ import React, { useState, useEffect } from "react";
 import { getStateLines } from "../logic/stateHandler";
 
 function StateJsonFileUploader({ onLoad }) {
+    const [jsonData, setJsonData] = useState(null);
+
     const handleFileUpload = (e) => {
         const file = e.target.files[0];
         if(!file) return;
@@ -14,10 +16,11 @@ function StateJsonFileUploader({ onLoad }) {
             try{
                 const jsonData = JSON.parse(content);
                 console.log("Parsed JSON:", jsonData);
+                setJsonData(jsonData);
+                onLoad(jsonData);
             } catch (error) {
                 console.error("Error parsing JSON:", error);   
             }
-            onLoad(jsonData);
         };
         // ファイルをjsonとして読み込む
         reader.readAsText(file);
