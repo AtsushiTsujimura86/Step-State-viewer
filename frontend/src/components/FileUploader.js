@@ -19,7 +19,7 @@ function FileUploader({ onLoad }) {
     }
     return (
         <div>
-        <input type="file" accept=".txt" onChange={handleFileUpload} />;
+            <input type="file" accept=".txt" onChange={handleFileUpload} />;
         </div>
     );
 }
