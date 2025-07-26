@@ -39,7 +39,7 @@ function App() {
 
 
   return (
-    <div className="App">
+    <div className="App container">
         <h2>ログステップ実行ビューア</h2>
         <FileUploader onLoad={handleLogLoad} />
         <StateJsonFileUploader onLoad={handleStataJsonLoad} />

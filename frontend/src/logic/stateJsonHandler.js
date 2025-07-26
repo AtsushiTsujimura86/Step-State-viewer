@@ -1,6 +1,6 @@
 import React, { useLayoutEffect, useState } from 'react';
 
-function getStateMachineHtml(stateJson) {
+function getMermaidString(stateJson) {
     try {
         const { states, transitions, initialState } = stateJson;
         console.log("State JSON:", stateJson);
@@ -20,10 +20,10 @@ function getStateMachineHtml(stateJson) {
         });
         return mermaidString;
     } catch (error) {
-        console.error("Error parsing state JSON:", error);
+        console.error("<Error parsing state JSON>:", error);
     }
 
 
 }
 
-export default getStateMachineHtml;
+export default getMermaidString;

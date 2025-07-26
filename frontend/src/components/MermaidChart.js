@@ -1,33 +1,32 @@
 import React, { useEffect, useLayoutEffect, useState } from 'react';
 import mermaid from 'mermaid';
-import getStateMachineHtml from '../logic/stateJsonHandler';
+import getMermaidString from '../logic/stateJsonHandler';
 
 function MermaidChart({ currentState, stateJson }) {
   const [svg, setSvg] = useState('');
   const [mermaidString, setMermaidString] = useState('');
 
+// マーメイド形式の文字列を生成
   useEffect(()=>{
     if (stateJson) {
-      const mermaidHtml = getStateMachineHtml(stateJson);
-      setMermaidString(mermaidHtml);
-      console.log("Mermaid String:", mermaidHtml  );
+      setMermaidString(getMermaidString(stateJson));
+      console.log("Mermaid String:", mermaidString);
+      setSvg(''); // Reset SVG when stateJson changes
     }
-  }, [stateJson])
+  }, [stateJson]);
 
-  // Mermaid構文を生成
-  const generateMermaid = () => {
-    console.log('Generating Mermaid diagram...');
-    return `${mermaidString}`;
-  }
+
 
   useLayoutEffect(() => {
+    if (!currentState || !mermaidString) return;
     const id = 'mermaid-' + Math.floor(Math.random() * 100000);
     mermaid.initialize({ startOnLoad: false });
 
-    mermaid.render(id, generateMermaid())
+    mermaid.render(id, mermaidString)
       .then(({ svg }) => setSvg(svg))
-      .catch(err => setSvg(`<pre style="color:red">${err.message}</pre>`));
+      .catch(err => console.error('<Mermaid rendering error>:', err));
   }, [currentState, mermaidString]);
+
 
   return (
     <div style={{ minHeight: '300px' }}

@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { getStateLines } from "../logic/stateHandler";
+import "../layout.css"
 
 function StateJsonFileUploader({ onLoad }) {
     const [jsonData, setJsonData] = useState(null);
@@ -27,9 +28,9 @@ function StateJsonFileUploader({ onLoad }) {
         // JSONパースして状態を設定
     }
     return (
-        <div>
-            <label htmlFor="">Input json file</label>
-            <input type="file" accept=".json" onChange={handleFileUpload} />;
+        <div className="input-group">
+            <span className="input-group-text">Input json file</span>
+            <input type="file" accept=".json" onChange={handleFileUpload} className="form-control" placeholder="" />
         </div>
     );
 }
