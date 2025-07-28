@@ -1,24 +1,25 @@
 import React, { useLayoutEffect, useState } from 'react';
 
+
+// マーメイド形式の文字列を生成
 function getMermaidString(stateJson, currentState) {
     try {
         const { states, transitions, initialState } = stateJson;
-        console.log("State JSON:", stateJson);
-        console.log("states: ", states);
-        console.log("transitions: ", transitions);
-        console.log("initialState: ", initialState);
-          // Mermaid構文を生成
+        
+        // 初期状態を設定
         let mermaidString = `
             stateDiagram-v2
             [*] --> ${initialState}
         `;
 
+        //遷移を追加
         transitions.forEach(({ from, to }) => {
             mermaidString += `
             ${from} --> ${to}
             `;
         });
 
+        //ハイライトのためのスタイルを追加
         states.forEach((state) => {
             if (state == currentState){
                 mermaidString += `

@@ -1,0 +1,17 @@
+{
+	"states": ["slot_submachine_state", "transmit_submachine_state", "isRecv_state", "waitNextTurn_state", "waitAck_state", "rcv_data_state", "idle_state"],
+	"transitions": [
+		{"from": "idle_state", "to": "slot_submachine_state", "condition": ""},
+		{"from": "waitNextTurn_state", "to": "idle_state", "condition": "slot.getNowSlot() == 0x00"},
+		{"from": "waitNextTurn_state", "to": "waitNextTurn_state", "condition": "else"},
+		{"from": "rcv_data_state", "to": "waitNextTurn_state", "condition": "rcvdata[1] == OWN_ADDR && rcvdata[2] == PacketType::ack"},
+		{"from": "rcv_data_state", "to": "waitAck_state", "condition": "else"},
+		{"from": "isRecv_state", "to": "rcv_data_state", "condition": "slot.available()"},
+		{"from": "isRecv_state", "to": "waitAck_state", "condition": "else"},
+		{"from": "waitAck_state", "to": "idle_state", "condition": "millis() > last_transmit + ack_timeout"},
+		{"from": "waitAck_state", "to": "isRecv_state", "condition": "else"},
+		{"from": "slot_submachine_state", "to": "transmit_submachine_state", "condition": ""},
+		{"from": "transmit_submachine_state", "to": "waitAck_state", "condition": ""}
+	],
+	"initialState": "idle_state"
+}

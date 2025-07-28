@@ -16,27 +16,38 @@ function App() {
         setStateLogs(logs);
         setCurrentIndex(0);
         if (logs.length > 0) {
-            const firstState = logs[0].split("STATE:")[1].trim();
-            setCurrentState(firstState);
+            const initState = logs[0].split("STATE:")[1].trim();
+            setCurrentState(initState);
         }       
     }
 
     const handleStataJsonLoad = (json) => {
         setStateJson(json);
         console.log("State JSON Loaded:", json);
-    
         }
     
-
+    // 次のステップに進むボタンのハンドラー
     const handleNext = () => {
         if (currentIndex < stateLogs.length - 1) {
             setCurrentIndex(currentIndex + 1);
             setCurrentState(stateLogs[currentIndex+1].split("STATE:")[1].trim());
-            console.log("Current Index", currentIndex);
-            console.log("Current State:", currentState);
         }
     };
+    
+    // 前のステップに戻るボタンのハンドラー
+    const handlePrevious = () =>{
+        if (currentIndex > 0) {
+            setCurrentIndex(currentIndex - 1);
+            setCurrentState(stateLogs[currentIndex-1].split("STATE:")[1].trim());
+        }
+    }
 
+    // 初めに戻るボタンのハンドラー
+    const handleBeginning = () => {
+        setCurrentIndex(0);
+        const initState = stateLogs[0].split("STATE:")[1].trim();
+        setCurrentState(initState);
+    }
 
   return (
     <div className="App container">
@@ -46,10 +57,26 @@ function App() {
         <button
             onClick={handleNext}
             disabled={currentIndex >= stateLogs.length - 1}
-            style={{ marginTop: "10px" }}
+            style={{ margin: "10px 10px" }}
             className="btn btn-primary"
         >
             次のステップ 
+        </button>
+        <button
+            onClick={handlePrevious}
+            disabled={currentIndex <= 0}
+            style={{ margin: "10px 10px" }}
+            className="btn btn-danger"
+        >
+            前のステップ
+        </button>
+        <button
+            onClick={handleBeginning}
+            disabled={currentIndex <= 0}
+            style={{ margin: "10px 10px" }}
+            className="btn btn-success"
+        >
+            最初に戻る
         </button>
         <div style={{ display: 'flex', justifyContent:'center' }}>
             <StateLogViewer logs={stateLogs} currentIndex={currentIndex} />
