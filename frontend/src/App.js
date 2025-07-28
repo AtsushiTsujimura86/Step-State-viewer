@@ -39,24 +39,22 @@ function App() {
 
 
   return (
-    <div className="App">
-        <h2 style={{height:'20vh', backgroundColor:'#f0f0f0'}}>ログステップ実行ビューア</h2>
-        <body className='container'>
-            <FileUploader onLoad={handleLogLoad} />
-            <StateJsonFileUploader onLoad={handleStataJsonLoad} />
-            <button
-                onClick={handleNext}
-                disabled={currentIndex >= stateLogs.length - 1}
-                style={{ marginTop: "10px" }}
-                className='btn btn-primary'
-            >
-                次のステップ 
-            </button>
-            <div style={{ display: 'flex', justifyContent:'center' }}>
-                <StateLogViewer logs={stateLogs} currentIndex={currentIndex} />
-                <MermaidChart currentState={currentState} stateJson={stateJson}/>
-            </div>            
-        </body>
+    <div className="App container">
+        <h2>ログステップ実行ビューア</h2>
+        <FileUploader onLoad={handleLogLoad} />
+        <StateJsonFileUploader onLoad={handleStataJsonLoad} />
+        <button
+            onClick={handleNext}
+            disabled={currentIndex >= stateLogs.length - 1}
+            style={{ marginTop: "10px" }}
+            className="btn btn-primary"
+        >
+            次のステップ 
+        </button>
+        <div style={{ display: 'flex', justifyContent:'center' }}>
+            <StateLogViewer logs={stateLogs} currentIndex={currentIndex} />
+            <MermaidChart currentState={currentState} stateJson={stateJson}/>
+        </div>
 
     </div>
   );

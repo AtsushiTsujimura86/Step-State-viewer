@@ -1,8 +1,8 @@
-# Mermaid.js × Reactでの初期描画バグと解決策まとめ
+## Mermaid.js × Reactでの初期描画バグと解決策まとめ
 
 ---
 
-## 1. 今回の現象
+### 1. 今回の現象
 
 - **ReactでMermaid.jsの状態遷移図を描画する際、リロード直後や状態変化時に「SVGが空（ノード・エッジがない）」になる現象が発生**
     - 初回マウント時や、再描画タイミングでグラフが見えない・消える
@@ -10,7 +10,7 @@
 
 ---
 
-## 2. 原因
+### 2. 原因
 
 - **ReactとMermaidの「DOM管理方法の違い」による競合が原因**
     - Mermaidは直接DOMを書き換える（`element.innerHTML = svg`等）
@@ -19,7 +19,7 @@
 
 ---
 
-## 3. `dangerouslySetInnerHTML`とは？
+### 3. `dangerouslySetInnerHTML`とは？
 
 - **Reactが本来禁止している「HTMLやSVGの文字列をそのままDOMに挿入する」ためのプロパティ**
     - 通常の`<div>{htmlString}</div>`だと、文字列として解釈されHTMLタグは無効化される
@@ -35,9 +35,9 @@
 
 ---
 
-## 4. 解決策（今回のベストプラクティス）
+### 4. 解決策（今回のベストプラクティス）
 
-### A. Mermaidの描画結果（SVG文字列）をReactのstateで管理
+#### A. Mermaidの描画結果（SVG文字列）をReactのstateで管理
 
 1. MermaidでSVG文字列を生成
 2. そのSVGをReactの`useState`で保持
@@ -60,14 +60,14 @@ return (
 
 ---
 
-## 5. 一般性・再利用性
+### 5. 一般性・再利用性
 
 - **この現象と解決策は、外部ライブラリがDOMを書き換える系（Mermaid, Chart.js, など）では一般的によく発生し、世界中で同じ手法が使われている**
 - React公式・GitHub・StackOverflowでも「SVG/HTML文字列をstateで管理し、dangerouslySetInnerHTMLで描画」がベストプラクティスとされる
 
 ---
 
-## 6. まとめ
+### 6. まとめ
 
 - React × Mermaid.jsの「初回描画が空になる」現象はDOM管理競合が原因
 - MermaidのSVGを**文字列としてstate管理→dangerouslySetInnerHTMLで描画**が王道解決
@@ -75,6 +75,6 @@ return (
 
 ---
 
-### 【参考】
+#### 【参考】
 - [Why mermaid charts disappear in React and how to fix it](https://rendazhang.medium.com/why-mermaid-charts-disappear-in-react-and-how-to-fix-it-351545ef1ebc)
 - [React公式：dangerouslySetInnerHTML](https://ja.react.dev/reference/react-dom/components/common#dangerouslysetinnerhtml)

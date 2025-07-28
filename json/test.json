@@ -1,10 +1,9 @@
 {
-    "states": ["IDLE", "LOADING", "PROCESSING", "COMPLETED"],
+    "states": ["IDLE", "RX", "TX"],
     "transitions": [
-        {"from": "IDLE", "to": "LOADING"},
-        {"from": "LOADING", "to": "PROCESSING"},
-        {"from": "PROCESSING", "to": "COMPLETED"},
-        {"from": "COMPLETED", "to": "IDLE"}
+        {"from": "IDLE", "to": "RX"},
+        {"from": "RX", "to": "TX"},
+        {"from": "TX", "to": "IDLE"}
     ],
     "initialState": "IDLE"
 }

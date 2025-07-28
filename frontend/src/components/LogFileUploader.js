@@ -18,9 +18,9 @@ function FileUploader({ onLoad }) {
         reader.readAsText(file);
     }
     return (
-        <div style={{ marginBottom: "20px" }}>
-            <label htmlFor="logFile" className="form-label">ログファイルのアップロード</label>
-            <input type="file" accept=".txt" onChange={handleFileUpload} className="form-control" id="logFile" />
+        <div className="input-group">
+            <span className="input-group-text">ログファイル</span>
+            <input type="file" accept=".txt" onChange={handleFileUpload} className="form-control" placeholder="" />
         </div>
     );
 }
