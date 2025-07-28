@@ -43,7 +43,7 @@ function App() {
     }
 
     // 初めに戻るボタンのハンドラー
-    const handleBeginning = () => {
+    const handleInitial = () => {
         setCurrentIndex(0);
         const initState = stateLogs[0].split("STATE:")[1].trim();
         setCurrentState(initState);
@@ -71,7 +71,7 @@ function App() {
             前のステップ
         </button>
         <button
-            onClick={handleBeginning}
+            onClick={handleInitial}
             disabled={currentIndex <= 0}
             style={{ margin: "10px 10px" }}
             className="btn btn-success"
