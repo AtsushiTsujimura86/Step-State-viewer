@@ -27,11 +27,11 @@ function StateJsonFileUploader({ onLoad }) {
         // JSONパースして状態を設定
     }
     return (
-        <div>
-            <label htmlFor="">Input json file</label>
-            <input type="file" accept=".json" onChange={handleFileUpload} />;
+        <div style={{ marginBottom: "20px" }}>
+            <label htmlFor="" className="form-label">Input json file</label>
+            <input type="file" accept=".json" onChange={handleFileUpload} className="form-control" />
         </div>
     );
 }
 
-export default StateJsonFileUploader;
+export default StateJsonFileUploader; 
